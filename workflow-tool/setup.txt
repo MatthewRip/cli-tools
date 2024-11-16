@@ -1,0 +1,35 @@
+# create python vevn
+python3.11 -m venv workflow-venv
+
+# activate venv
+source workflow-venv/bin/activate
+
+
+
+# dependencies 
+# pip install inquirer
+
+
+
+
+import click
+import os
+import subprocess
+
+@click.command()
+@click.option('--folder', type=click.Choice(['folder1', 'folder2', 'folder3']), prompt='Select a folder to open in VSCode')
+def open_folder(folder):
+    folder_paths = {
+        'folder1': '/path/to/folder1',
+        'folder2': '/path/to/folder2',
+        'folder3': '/path/to/folder3'
+    }
+    
+    path = folder_paths.get(folder)
+    if path and os.path.exists(path):
+        subprocess.run(['code', path])
+    else:
+        click.echo(f"Path {path} does not exist.")
+
+if __name__ == '__main__':
+    open_folder()
